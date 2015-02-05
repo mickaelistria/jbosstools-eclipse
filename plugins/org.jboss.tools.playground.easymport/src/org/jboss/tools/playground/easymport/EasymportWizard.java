@@ -6,9 +6,10 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.dialogs.DialogSettings;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkingSet;
@@ -34,7 +35,6 @@ public class EasymportWizard extends Wizard implements IImportWizard {
 				}
 			}
 		}
-		setDialogSettings(new DialogSettings(getClass().getName()));
 	}
 	
 	private File toFile(Object o) {
@@ -69,8 +69,27 @@ public class EasymportWizard extends Wizard implements IImportWizard {
 
 	@Override
 	public boolean performFinish() {
-		new OpenFolderCommand().importProjectsFromDirectory(this.page.getSelectedRootDirectory(), this.page.getSelectedWorkingSets());
+		getDialogSettings().put(EasymportWizardPage.ROOT_DIRECTORY, page.getSelectedRootDirectory().getAbsolutePath());
+		final File directory = this.page.getSelectedRootDirectory();
+		final Set<IWorkingSet> workingSets = this.page.getSelectedWorkingSets();
+		Display.getCurrent().asyncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				new OpenFolderCommand().importProjectsFromDirectory(directory, workingSets);
+			}
+		});
 		return true;
+	}
+
+	@Override
+	public IDialogSettings getDialogSettings() {
+		IDialogSettings dialogSettings = super.getDialogSettings();
+		if (dialogSettings == null) {
+			dialogSettings = Activator.getDefault().getDialogSettings();
+			setDialogSettings(dialogSettings);
+		}
+		return dialogSettings;
 	}
 
 }
