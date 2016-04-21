@@ -27,24 +27,4 @@
    <bundle id="org.jboss.tools.playground.bower" version="0.0.0">
       <category name="JBoss Tools Bower"/>
    </bundle>
-
-   <category-def name="Deprecated" label="Deprecated (moved to Eclipse Platform or e4)"/>
-   <bundle id="org.jboss.tools.playground.nestor" version="0.0.0">
-      <category name="Deprecated"/>
-   </bundle>
-   <bundle id="org.jboss.tools.playground.easymport" version="0.0.0">
-      <category name="Deprecated"/>
-   </bundle>
-   <bundle id="org.jboss.tools.playground.easymport.java" version="0.0.0">
-      <category name="Deprecated"/>
-   </bundle>
-   <bundle id="org.jboss.tools.playground.easymport.pde" version="0.0.0">
-      <category name="Deprecated"/>
-   </bundle>
-   <bundle id="org.jboss.tools.playground.easymport.javascript" version="0.0.0">
-      <category name="Deprecated"/>
-   </bundle>
-   <!--bundle id="org.jboss.tools.playground.easymport.egit" version="0.0.0">
-      <category name="Deprecated"/>
-   </bundle-->
 </site>
